@@ -28,6 +28,9 @@ var run_speed = 1
 var combo = false
 var attack_cooldown = false
 var player_pos
+var basic_damage = 10
+var current_damage
+var damage_multiplier = 1
 
 func _ready():
 	Signals.connect("enemy_attack", Callable(self, "_on_damage_taken"))
@@ -35,6 +38,15 @@ func _ready():
 
 
 func _physics_process(delta):
+		# Add the gravity.
+	if not is_on_floor():
+		velocity.y += gravity * delta
+	if velocity.y > 0:
+		anim.play("Fall")
+		
+	current_damage = basic_damage * damage_multiplier
+	
+	
 	match state:
 		MOVE:
 			move_state()
@@ -53,11 +65,7 @@ func _physics_process(delta):
 		DAMAGE:
 			damage_state()
 
-	# Add the gravity.
-	if not is_on_floor():
-		velocity.y += gravity * delta
-	if velocity.y > 0:
-		anim.play("Fall")
+
 
 	
 	move_and_slide()
@@ -79,8 +87,10 @@ func move_state ():
 			animPlayer.play("Idle")
 	if direction == -1:
 		anim.flip_h = true
+		$AttackDirection.scale=Vector2(-1,1)
 	elif direction == 1:
 		anim.flip_h = false
+		$AttackDirection.scale=Vector2(1,1)
 	if Input.is_action_pressed("run"):
 		run_speed = 2
 	else:
@@ -113,6 +123,7 @@ func slide_state ():
 	state = MOVE
 	
 func attack_state ():
+	damage_multiplier = 1
 	if Input.is_action_just_pressed("attack") and combo == true:
 		state = ATTACK2
 	velocity.x = 0
@@ -122,6 +133,7 @@ func attack_state ():
 	state = MOVE
 
 func attack2_state ():
+	damage_multiplier = 1.2
 	if Input.is_action_just_pressed("attack") and combo == true:
 		state = ATTACK3
 	animPlayer.play("Attack2")
@@ -129,6 +141,7 @@ func attack2_state ():
 	state = MOVE
 
 func attack3_state ():
+	damage_multiplier = 1.5
 	animPlayer.play("Attack3")
 	await animPlayer.animation_finished
 	state = MOVE
@@ -161,4 +174,9 @@ func _on_damage_taken(enemy_damage):
 		health = 0
 		state = DEATH		
 	emit_signal("health_changed", health)
-	print(health)
+
+
+
+func _on_hit_box_area_entered(area):
+	Signals.emit_signal("player_attack", current_damage)
+
