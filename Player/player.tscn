@@ -2,8 +2,8 @@
 
 [ext_resource type="Texture2D" uid="uid://cmftf20sm7nlv" path="res://oak_woods_v1.0/character/char_blue.png" id="1_6ne6j"]
 [ext_resource type="Script" path="res://Player/player.gd" id="1_burtu"]
-[ext_resource type="Texture2D" uid="uid://b8yddowct31fp" path="res://generic_char_v0.2/png/blue/char_blue_1.png" id="2_r58sp"]
-[ext_resource type="Texture2D" uid="uid://b4whddiykce6" path="res://generic_char_v0.2/png/blue/char_blue_2.png" id="3_uw2xp"]
+[ext_resource type="Texture2D" uid="uid://b8yddowct31fp" path="res://Assets/generic_char_v0.2/png/blue/char_blue_1.png" id="2_r58sp"]
+[ext_resource type="Texture2D" uid="uid://b4whddiykce6" path="res://Assets/generic_char_v0.2/png/blue/char_blue_2.png" id="3_uw2xp"]
 [ext_resource type="Texture2D" uid="uid://tqeujo8ra0lv" path="res://oak_woods_v1.0/decorations/circle.png" id="5_fkqx7"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_gh7xj"]
@@ -1010,6 +1010,7 @@ polygon = PackedVector2Array(-20, 34, 20, 34, 17, 30, -18, 30)
 
 [node name="Player" type="CharacterBody2D"]
 position = Vector2(328, 338)
+collision_layer = 2
 script = ExtResource("1_burtu")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -1020,9 +1021,8 @@ shape = SubResource("CapsuleShape2D_gh7xj")
 position = Vector2(1, -22.5)
 scale = Vector2(2.35714, 2.01786)
 sprite_frames = SubResource("SpriteFrames_hasym")
-animation = &"Attack2"
+animation = &"Slide"
 autoplay = "Idle"
-frame = 2
 
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(2, 2)
