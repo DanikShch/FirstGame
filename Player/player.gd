@@ -1,12 +1,16 @@
 extends CharacterBody2D
 
+signal health_changed (new_heath)
+
 enum {
 	MOVE,
 	ATTACK,
 	ATTACK2,
 	ATTACK3,
 	BLOCK,
-	SLIDE
+	SLIDE,
+	DEATH,
+	DAMAGE
 }
 
 const SPEED = 300.0
@@ -16,12 +20,18 @@ const JUMP_VELOCITY = -400.0
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 @onready var anim = $AnimatedSprite2D #get_node("AnimatedSprite2D")
 @onready var animPlayer = $AnimationPlayer
-var health = 100
+var max_health = 100
+var health
 var gold = 0
 var state = MOVE
 var run_speed = 1
 var combo = false
 var attack_cooldown = false
+var player_pos
+
+func _ready():
+	Signals.connect("enemy_attack", Callable(self, "_on_damage_taken"))
+	health = max_health
 
 
 func _physics_process(delta):
@@ -38,25 +48,21 @@ func _physics_process(delta):
 			block_state()
 		SLIDE:
 			slide_state()
+		DEATH:
+			death_state()
+		DAMAGE:
+			damage_state()
 
 	# Add the gravity.
 	if not is_on_floor():
 		velocity.y += gravity * delta
-
-			
-
-		
 	if velocity.y > 0:
 		anim.play("Fall")
-		
-	if health <= 0:
-		health = 0
-		animPlayer.play("Death")
-		await animPlayer.animation_finished
-		queue_free()
-		get_tree().change_scene_to_file("res://menu.tscn")
+
 	
 	move_and_slide()
+	player_pos = self.position
+	Signals.emit_signal("player_position_update", player_pos)
 	
 func move_state ():
 	var direction = Input.get_axis("left", "right")
@@ -87,6 +93,13 @@ func move_state ():
 	
 	if Input.is_action_just_pressed("attack") and !attack_cooldown:
 		state = ATTACK
+		
+func death_state():
+	velocity.x = 0
+	animPlayer.play("Death")
+	await animPlayer.animation_finished
+	queue_free()
+	get_tree().change_scene_to_file.bind("res://menu.tscn").call_deferred()
 		
 func block_state ():
 	velocity.x = 0
@@ -129,3 +142,23 @@ func attack_freeze():
 	attack_cooldown = true
 	await get_tree().create_timer(0.3).timeout
 	attack_cooldown = false
+
+func damage_state ():
+	velocity.x = 0
+	animPlayer.play("TakeHit")
+	await animPlayer.animation_finished
+	state = MOVE
+
+func _on_damage_taken(enemy_damage):
+	if state == BLOCK:
+		enemy_damage /=2
+	elif state == SLIDE:
+		enemy_damage = 0
+	else:
+		state = DAMAGE
+	health -= enemy_damage
+	if health <= 0:
+		health = 0
+		state = DEATH		
+	emit_signal("health_changed", health)
+	print(health)

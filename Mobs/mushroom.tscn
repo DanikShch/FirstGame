@@ -1,4 +1,4 @@
-[gd_scene load_steps=44 format=3 uid="uid://dmub7321o5is5"]
+[gd_scene load_steps=47 format=3 uid="uid://dmub7321o5is5"]
 
 [ext_resource type="Texture2D" uid="uid://q0hi28b522y5" path="res://Assets/Monsters_Creatures_Fantasy/Mushroom/Attack.png" id="1_6hrlf"]
 [ext_resource type="Script" path="res://Mobs/mushroom.gd" id="1_e5qvo"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://mwgwcja1wb3m" path="res://Assets/Monsters_Creatures_Fantasy/Mushroom/Death.png" id="3_1mbum"]
 [ext_resource type="Texture2D" uid="uid://cykuw5mbx1efw" path="res://Assets/Monsters_Creatures_Fantasy/Mushroom/Idle.png" id="4_26hyx"]
 [ext_resource type="Texture2D" uid="uid://dououhjqe27ui" path="res://Assets/Monsters_Creatures_Fantasy/Mushroom/Run.png" id="5_108gq"]
+[ext_resource type="PackedScene" uid="uid://cejj702ybgwf4" path="res://scn/damageBox/damage_box.tscn" id="7_ifgam"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_qs5im"]
 height = 36.0
@@ -260,6 +261,18 @@ tracks/1/keys = {
 "update": 1,
 "values": ["Attack"]
 }
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("AttackDirection/DamageBox/HitBox/CollisionShape2D:disabled")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.6, 0.8),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [true, false, true]
+}
 
 [sub_resource type="Animation" id="Animation_k5ee7"]
 length = 0.5
@@ -371,17 +384,36 @@ tracks/1/keys = {
 "values": ["Run"]
 }
 
+[sub_resource type="Animation" id="Animation_srn1f"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AttackDirection/DamageBox/HitBox/CollisionShape2D:disabled")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_dmh2j"]
 _data = {
 "Attack": SubResource("Animation_kp3tb"),
 "Damage": SubResource("Animation_k5ee7"),
 "Death": SubResource("Animation_5oiry"),
 "Idle": SubResource("Animation_7gagi"),
+"RESET": SubResource("Animation_srn1f"),
 "Run": SubResource("Animation_mvm6x")
 }
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_n7d1d"]
 size = Vector2(14, 17.5)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_5fbqr"]
+radius = 9.0
 
 [node name="Mushroom" type="CharacterBody2D"]
 scale = Vector2(2, 2)
@@ -389,6 +421,7 @@ collision_layer = 4
 script = ExtResource("1_e5qvo")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
 position = Vector2(0, 1)
 shape = SubResource("CapsuleShape2D_qs5im")
 
@@ -397,7 +430,7 @@ position = Vector2(0, -7)
 sprite_frames = SubResource("SpriteFrames_5uohb")
 animation = &"Attack"
 autoplay = "Idle"
-frame = 6
+frame = 7
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -411,7 +444,29 @@ collision_layer = 0
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AttackDirection/AttackRange"]
+visible = false
 position = Vector2(17.5, -0.25)
 shape = SubResource("RectangleShape2D_n7d1d")
 
+[node name="DamageBox" parent="AttackDirection" instance=ExtResource("7_ifgam")]
+
+[node name="HurtBox" parent="AttackDirection/DamageBox" index="0"]
+collision_layer = 32
+collision_mask = 0
+
+[node name="CollisionShape2D" parent="AttackDirection/DamageBox/HurtBox" index="0"]
+position = Vector2(0, 4)
+
+[node name="HitBox" parent="AttackDirection/DamageBox" index="1"]
+collision_layer = 0
+collision_mask = 16
+
+[node name="CollisionShape2D" parent="AttackDirection/DamageBox/HitBox" index="0"]
+position = Vector2(16.5, 3.5)
+shape = SubResource("CircleShape2D_5fbqr")
+disabled = true
+
 [connection signal="body_entered" from="AttackDirection/AttackRange" to="." method="_on_attack_range_body_entered"]
+[connection signal="area_entered" from="AttackDirection/DamageBox/HitBox" to="." method="_on_hit_box_area_entered"]
+
+[editable path="AttackDirection/DamageBox"]
