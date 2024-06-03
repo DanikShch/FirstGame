@@ -1396,7 +1396,7 @@ blend_mode = 1
 range_layer_min = -1
 
 [node name="DayNight" type="Timer" parent="Light"]
-wait_time = 2.0
+wait_time = 30.0
 autostart = true
 
 [node name="PointLight2D" type="PointLight2D" parent="Light"]
@@ -1421,6 +1421,7 @@ occluder = SubResource("OccluderPolygon2D_fkoya")
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="Label2" type="Label" parent="CanvasLayer"]
+visible = false
 offset_left = 24.0
 offset_top = 86.0
 offset_right = 170.0
