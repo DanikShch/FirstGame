@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://cqmixo3iv8b0n"]
+[gd_scene load_steps=28 format=3 uid="uid://cqmixo3iv8b0n"]
 
 [ext_resource type="Script" path="res://level.gd" id="1_eo7cy"]
 [ext_resource type="PackedScene" uid="uid://cb1ucs77j4jdc" path="res://Player/player.tscn" id="1_vpjtd"]
@@ -12,7 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://bu3526krsx7uj" path="res://scn/Light/lantern.tscn" id="8_70fqb"]
 [ext_resource type="PackedScene" uid="uid://dmub7321o5is5" path="res://Mobs/mushroom.tscn" id="9_rm0e2"]
 [ext_resource type="PackedScene" uid="uid://bkw1fpnhovraq" path="res://scn/UI/pause_menu.tscn" id="9_xgnfs"]
-[ext_resource type="PackedScene" uid="uid://bhk87oxtfjjw2" path="res://scn/Collectibles/coin.tscn" id="10_2rq1e"]
+[ext_resource type="Texture2D" uid="uid://bia1irabqvdad" path="res://Assets/sprites/spotlight_6.png" id="13_up4eb"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_722i0"]
 texture = ExtResource("5_jky3v")
@@ -1354,6 +1354,35 @@ func coin_spawn(pos):
 	call_deferred(\"add_child\", coin)
 "
 
+[sub_resource type="Gradient" id="Gradient_yp3tj"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0.337255)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_78aph"]
+gradient = SubResource("Gradient_yp3tj")
+
+[sub_resource type="Curve" id="Curve_3ftf1"]
+_data = [Vector2(0, 0.494505), 0.0, 0.0, 0, 0, Vector2(0.490099, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.098901), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_sptbv"]
+curve = SubResource("Curve_3ftf1")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_kwmqf"]
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(100, 100, 1)
+direction = Vector3(1, -1, 0)
+spread = 180.0
+initial_velocity_min = 0.1
+initial_velocity_max = 0.3
+gravity = Vector3(0, 0, 0)
+scale_min = 0.1
+scale_max = 0.5
+scale_curve = SubResource("CurveTexture_sptbv")
+color_ramp = SubResource("GradientTexture1D_78aph")
+hue_variation_min = -0.5
+hue_variation_max = 0.5
+
 [node name="Level" type="Node2D"]
 script = ExtResource("1_eo7cy")
 
@@ -1460,6 +1489,7 @@ grow_horizontal = 0
 text = "MENU"
 
 [node name="Light" type="Node2D" parent="."]
+visible = false
 
 [node name="DirectionalLight2D" type="DirectionalLight2D" parent="Light"]
 energy = 0.9
@@ -1480,10 +1510,6 @@ script = SubResource("GDScript_t0s8u")
 wait_time = 3.0
 autostart = true
 
-[node name="Coin" parent="Collectibles" instance=ExtResource("10_2rq1e")]
-visible = false
-position = Vector2(147, 550)
-
 [node name="Mobs" type="Node2D" parent="."]
 
 [node name="Mushroom" parent="Mobs" instance=ExtResource("9_rm0e2")]
@@ -1497,6 +1523,14 @@ autostart = true
 
 [node name="Player" parent="Player" instance=ExtResource("1_vpjtd")]
 position = Vector2(259, 467)
+
+[node name="Dust" type="GPUParticles2D" parent="."]
+position = Vector2(-12, 263)
+scale = Vector2(50.2277, 3)
+amount = 70
+process_material = SubResource("ParticleProcessMaterial_kwmqf")
+texture = ExtResource("13_up4eb")
+lifetime = 5.0
 
 [connection signal="pressed" from="CanvasLayer/PauseMenu/Panel/VBoxContainer/Resume" to="Manager" method="_on_resume_pressed"]
 [connection signal="pressed" from="CanvasLayer/PauseMenu/Panel/VBoxContainer/Save" to="Manager" method="_on_save_pressed"]

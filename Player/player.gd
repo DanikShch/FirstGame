@@ -14,9 +14,9 @@ enum {
 
 const SPEED = 300.0
 const JUMP_VELOCITY = -400.0
-
-# Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
+# Get the gravity from the project settings to be synced with RigidBody nodes.
+@onready var leafs = $Leafs
 @onready var anim = $AnimatedSprite2D #get_node("AnimatedSprite2D")
 @onready var animPlayer = $AnimationPlayer
 @onready var stats = $Stats
@@ -192,3 +192,7 @@ func _on_stats_no_stamina():
 	recovery = true
 	await get_tree().create_timer(2).timeout
 	recovery = false
+	
+func steps():
+	leafs.emitting = true
+	leafs.one_shot = true

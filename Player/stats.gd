@@ -30,7 +30,7 @@ var health:
 
 var max_stamina = 100
 var stamina_regen = 10
-var stamina = 50:
+var stamina = 100:
 	set(value):
 		stamina = value
 		if(stamina) < 1:
