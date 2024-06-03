@@ -1,0 +1,24 @@
+[gd_resource type="Theme" load_steps=6 format=3 uid="uid://dy1ipgu42o8qq"]
+
+[ext_resource type="FontFile" uid="uid://bvvxrt3tjecsq" path="res://UI/SaarSPDemo.otf" id="1_2gy46"]
+[ext_resource type="Texture2D" uid="uid://1md4h1c1jwfs" path="res://Assets/sprites/UI_border.png" id="2_ul7kc"]
+[ext_resource type="Texture2D" uid="uid://bjjcg6p5g786f" path="res://Assets/sprites/Inventory_9Slices.png" id="3_6elps"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_xh52k"]
+texture = ExtResource("2_ul7kc")
+texture_margin_left = 10.0
+texture_margin_top = 10.0
+texture_margin_right = 10.0
+texture_margin_bottom = 10.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ehqtc"]
+texture = ExtResource("3_6elps")
+texture_margin_left = 15.0
+texture_margin_top = 12.0
+texture_margin_right = 15.0
+texture_margin_bottom = 12.0
+
+[resource]
+Label/fonts/font = ExtResource("1_2gy46")
+Panel/styles/panel = SubResource("StyleBoxTexture_xh52k")
+PanelContainer/styles/panel = SubResource("StyleBoxTexture_ehqtc")

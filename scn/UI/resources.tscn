@@ -1,0 +1,78 @@
+[gd_scene load_steps=5 format=3 uid="uid://cf5hagcfkbflr"]
+
+[ext_resource type="Texture2D" uid="uid://cfxqdyeakqyix" path="res://Assets/items/coin_05c.png" id="1_dncgp"]
+[ext_resource type="Texture2D" uid="uid://cjnceeissxwng" path="res://Assets/items/wood_01a.png" id="2_cpjqk"]
+[ext_resource type="Texture2D" uid="uid://corhffxwls3gc" path="res://Assets/items/stoneblock_01a.png" id="3_c25ie"]
+[ext_resource type="Texture2D" uid="uid://b3mjfrvdbkd3a" path="res://Assets/items/gem_01a.png" id="4_iadlr"]
+
+[node name="Resources" type="CanvasLayer"]
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="Control"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -189.0
+offset_top = 21.0
+offset_right = 189.0
+offset_bottom = 93.0
+grow_horizontal = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/PanelContainer"]
+layout_mode = 2
+
+[node name="CoinIcon" type="TextureRect" parent="Control/PanelContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+texture = ExtResource("1_dncgp")
+stretch_mode = 4
+
+[node name="CoinText" type="Label" parent="Control/PanelContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "0"
+
+[node name="WoodIcon" type="TextureRect" parent="Control/PanelContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+texture = ExtResource("2_cpjqk")
+stretch_mode = 4
+
+[node name="WoodText" type="Label" parent="Control/PanelContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "0"
+
+[node name="StoneIcon" type="TextureRect" parent="Control/PanelContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+texture = ExtResource("3_c25ie")
+stretch_mode = 4
+
+[node name="StoneText" type="Label" parent="Control/PanelContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "0"
+
+[node name="GemIcon" type="TextureRect" parent="Control/PanelContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+texture = ExtResource("4_iadlr")
+stretch_mode = 4
+
+[node name="GemText" type="Label" parent="Control/PanelContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "0"

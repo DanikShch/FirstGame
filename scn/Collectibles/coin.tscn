@@ -60,7 +60,7 @@ shape = SubResource("RectangleShape2D_ayp8a")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_ceo2o")
 autoplay = "default"
-frame_progress = 0.612061
+frame_progress = 0.783417
 
 [node name="Detector" type="Area2D" parent="."]
 collision_layer = 0

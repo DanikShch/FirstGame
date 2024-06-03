@@ -36,6 +36,16 @@ offset_bottom = 102.0
 grow_horizontal = 2
 grow_vertical = 2
 
+[node name="Label" type="Label" parent="Panel/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "MENU"
+horizontal_alignment = 1
+
+[node name="Control" type="Control" parent="Panel/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
 [node name="Resume" type="Button" parent="Panel/VBoxContainer"]
 layout_mode = 2
 text = "Resume"
@@ -52,15 +62,6 @@ text = "Load"
 layout_mode = 2
 text = "Quit"
 
-[node name="Label" type="Label" parent="Panel"]
-layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -68.0
-offset_top = 31.0
-offset_right = 68.0
-offset_bottom = 54.0
-grow_horizontal = 2
-text = "MENU"
-horizontal_alignment = 1
+[node name="Control2" type="Control" parent="Panel/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
