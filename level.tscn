@@ -1456,7 +1456,11 @@ autostart = true
 [node name="Mobs" type="Node2D" parent="."]
 
 [node name="Mushroom" parent="Mobs" instance=ExtResource("9_rm0e2")]
-position = Vector2(88, 463)
+position = Vector2(56, 520)
+
+[node name="Spawner" type="Timer" parent="Mobs"]
+wait_time = 5.0
+autostart = true
 
 [node name="Player" type="Node2D" parent="."]
 
@@ -1465,3 +1469,4 @@ position = Vector2(259, 467)
 
 [connection signal="timeout" from="Light/DayNight" to="." method="_on_day_night_timeout"]
 [connection signal="timeout" from="Collectibles/Timer" to="Collectibles" method="_on_timer_timeout"]
+[connection signal="timeout" from="Mobs/Spawner" to="." method="_on_spawner_timeout"]

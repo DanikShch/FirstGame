@@ -191,8 +191,8 @@ func _on_damage_taken(enemy_damage):
 
 
 
-func _on_hit_box_area_entered(area):
-	Signals.emit_signal("player_attack", current_damage)
+#func _on_hit_box_area_entered(area):
+	#Signals.emit_signal("player_attack", current_damage)
 
 
 
