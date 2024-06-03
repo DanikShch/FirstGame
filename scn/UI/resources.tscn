@@ -1,11 +1,13 @@
-[gd_scene load_steps=5 format=3 uid="uid://cf5hagcfkbflr"]
+[gd_scene load_steps=6 format=3 uid="uid://cf5hagcfkbflr"]
 
+[ext_resource type="Script" path="res://scn/UI/resources.gd" id="1_bdqpi"]
 [ext_resource type="Texture2D" uid="uid://cfxqdyeakqyix" path="res://Assets/items/coin_05c.png" id="1_dncgp"]
 [ext_resource type="Texture2D" uid="uid://cjnceeissxwng" path="res://Assets/items/wood_01a.png" id="2_cpjqk"]
 [ext_resource type="Texture2D" uid="uid://corhffxwls3gc" path="res://Assets/items/stoneblock_01a.png" id="3_c25ie"]
 [ext_resource type="Texture2D" uid="uid://b3mjfrvdbkd3a" path="res://Assets/items/gem_01a.png" id="4_iadlr"]
 
 [node name="Resources" type="CanvasLayer"]
+script = ExtResource("1_bdqpi")
 
 [node name="Control" type="Control" parent="."]
 layout_mode = 3

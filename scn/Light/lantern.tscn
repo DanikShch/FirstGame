@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://bu3526krsx7uj"]
+
+[ext_resource type="Texture2D" uid="uid://tqeujo8ra0lv" path="res://oak_woods_v1.0/decorations/circle.png" id="1_s1x2h"]
+[ext_resource type="Script" path="res://scn/Light/lantern.gd" id="2_7e3so"]
+
+[node name="Lantern" type="PointLight2D"]
+scale = Vector2(0.365, 0.365)
+color = Color(0.975063, 0.872587, 0.812753, 1)
+energy = 1.5
+shadow_enabled = true
+texture = ExtResource("1_s1x2h")
+script = ExtResource("2_7e3so")
+
+[node name="Timer" type="Timer" parent="."]
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
