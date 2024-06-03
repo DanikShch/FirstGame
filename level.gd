@@ -64,14 +64,12 @@ func day_text_fade():
 func set_day_text():
 	dayText.text = "DAY" + str(dayCount)
 
-
-
-
 func _on_spawner_timeout():
 	mushroom_spawn()
 
 
 func mushroom_spawn():
-	var mushroom = mushroom_preload.instantiate()
-	mushroom.position = Vector2(randi_range(-500, 0), 520)
-	$Mobs.add_child(mushroom)
+	if $Mobs.get_child_count() < 5:
+		var mushroom = mushroom_preload.instantiate()
+		mushroom.position = Vector2(randi_range(-500, 0), 520)
+		$Mobs.add_child(mushroom)

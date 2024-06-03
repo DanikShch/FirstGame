@@ -34,10 +34,6 @@ var direction
 var damage = 20
 
 
-func _ready():
-	Signals.connect("player_position_update", Callable (self, "_on_player_position_update"))
-
-
 func _physics_process(delta):
 	if not is_on_floor():
 		velocity.y += gravity * delta
@@ -45,8 +41,7 @@ func _physics_process(delta):
 		chase_state()
 	move_and_slide()
 
-func _on_player_position_update(player_pos):
-	player = player_pos
+	player =Global.player_pos
 
 func _on_attack_range_body_entered(body):
 	state = ATTACK
@@ -70,6 +65,7 @@ func chase_state():
 		$AttackDirection.scale=Vector2(1,1)
 
 func damage_state():
+	damage_anim()
 	animPlayer.play("Damage")
 	await animPlayer.animation_finished
 	state = IDLE
@@ -97,3 +93,16 @@ func _on_mob_health_no_health():
 func _on_mob_health_damage_taken():
 	state = IDLE
 	state = DAMAGE
+	
+func damage_anim():
+	direction = (player - self.position).normalized()
+	velocity.x = 0
+	if direction.x < 0 :
+		velocity.x += 200
+	elif direction.x > 0:
+		velocity.x -= 200
+	var tween = get_tree().create_tween()
+	tween.tween_property(self, "velocity", Vector2.ZERO, 0.1)
+	
+	
+	
