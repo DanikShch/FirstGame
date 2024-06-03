@@ -1,7 +1,8 @@
-[gd_scene load_steps=19 format=3 uid="uid://cqmixo3iv8b0n"]
+[gd_scene load_steps=21 format=3 uid="uid://cqmixo3iv8b0n"]
 
 [ext_resource type="Script" path="res://level.gd" id="1_eo7cy"]
 [ext_resource type="PackedScene" uid="uid://cb1ucs77j4jdc" path="res://Player/player.tscn" id="1_vpjtd"]
+[ext_resource type="Script" path="res://Manager.gd" id="2_5fmw3"]
 [ext_resource type="Texture2D" uid="uid://dn4hlk474uysn" path="res://oak_woods_v1.0/background/background_layer_1.png" id="2_cde6i"]
 [ext_resource type="Texture2D" uid="uid://cscduxqv20dku" path="res://oak_woods_v1.0/background/background_layer_2.png" id="3_pvvvj"]
 [ext_resource type="Texture2D" uid="uid://ctas8xi47yvtk" path="res://oak_woods_v1.0/background/background_layer_3.png" id="4_eir3d"]
@@ -9,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://ba4ko3kws51qe" path="res://Buildings/shop.tscn" id="5_uhslo"]
 [ext_resource type="Texture2D" uid="uid://tqeujo8ra0lv" path="res://oak_woods_v1.0/decorations/circle.png" id="8_wmdh2"]
 [ext_resource type="PackedScene" uid="uid://dmub7321o5is5" path="res://Mobs/mushroom.tscn" id="9_rm0e2"]
+[ext_resource type="PackedScene" uid="uid://bkw1fpnhovraq" path="res://scn/UI/pause_menu.tscn" id="9_xgnfs"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_722i0"]
 texture = ExtResource("5_jky3v")
@@ -1346,6 +1348,10 @@ var gold = preload(\"res://Collectibles/gold.tscn\")
 [node name="Level" type="Node2D"]
 script = ExtResource("1_eo7cy")
 
+[node name="Manager" type="Node" parent="."]
+process_mode = 3
+script = ExtResource("2_5fmw3")
+
 [node name="BG" type="ParallaxBackground" parent="."]
 layer = -1
 offset = Vector2(0, 260)
@@ -1446,6 +1452,21 @@ libraries = {
 "": SubResource("AnimationLibrary_lueyo")
 }
 
+[node name="PauseMenu" parent="CanvasLayer" instance=ExtResource("9_xgnfs")]
+process_mode = 2
+
+[node name="MenuButton" type="Button" parent="CanvasLayer"]
+process_mode = 3
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -95.0
+offset_top = 11.0
+offset_right = -13.0
+offset_bottom = 47.0
+grow_horizontal = 0
+text = "MENU"
+
 [node name="Collectibles" type="Node2D" parent="."]
 script = SubResource("GDScript_t0s8u")
 
@@ -1468,5 +1489,10 @@ autostart = true
 position = Vector2(259, 467)
 
 [connection signal="timeout" from="Light/DayNight" to="." method="_on_day_night_timeout"]
+[connection signal="pressed" from="CanvasLayer/PauseMenu/Panel/VBoxContainer/Resume" to="Manager" method="_on_resume_pressed"]
+[connection signal="pressed" from="CanvasLayer/PauseMenu/Panel/VBoxContainer/Quit" to="Manager" method="_on_quit_pressed"]
+[connection signal="pressed" from="CanvasLayer/MenuButton" to="Manager" method="_on_menu_button_pressed"]
 [connection signal="timeout" from="Collectibles/Timer" to="Collectibles" method="_on_timer_timeout"]
 [connection signal="timeout" from="Mobs/Spawner" to="." method="_on_spawner_timeout"]
+
+[editable path="CanvasLayer/PauseMenu"]
