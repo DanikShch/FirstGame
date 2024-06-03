@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://cqmixo3iv8b0n"]
+[gd_scene load_steps=19 format=3 uid="uid://cqmixo3iv8b0n"]
 
 [ext_resource type="Script" path="res://level.gd" id="1_eo7cy"]
 [ext_resource type="PackedScene" uid="uid://cb1ucs77j4jdc" path="res://Player/player.tscn" id="1_vpjtd"]
@@ -7,11 +7,8 @@
 [ext_resource type="Texture2D" uid="uid://ctas8xi47yvtk" path="res://oak_woods_v1.0/background/background_layer_3.png" id="4_eir3d"]
 [ext_resource type="Texture2D" uid="uid://droe82qemfk5c" path="res://oak_woods_v1.0/oak_woods_tileset.png" id="5_jky3v"]
 [ext_resource type="PackedScene" uid="uid://ba4ko3kws51qe" path="res://Buildings/shop.tscn" id="5_uhslo"]
-[ext_resource type="Texture2D" uid="uid://sdefcd3sp3mn" path="res://Assets/Sprite-0003.png" id="8_pw777"]
 [ext_resource type="Texture2D" uid="uid://tqeujo8ra0lv" path="res://oak_woods_v1.0/decorations/circle.png" id="8_wmdh2"]
 [ext_resource type="PackedScene" uid="uid://dmub7321o5is5" path="res://Mobs/mushroom.tscn" id="9_rm0e2"]
-[ext_resource type="Texture2D" uid="uid://c13dna354fyei" path="res://Assets/Sprite-0001.png" id="9_ueysx"]
-[ext_resource type="Texture2D" uid="uid://cv5h8m3wepat" path="res://Assets/Sprite-0002.png" id="10_8yemy"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_722i0"]
 texture = ExtResource("5_jky3v")
@@ -1448,18 +1445,6 @@ libraries = {
 "": SubResource("AnimationLibrary_lueyo")
 }
 
-[node name="HealthBar" type="TextureProgressBar" parent="CanvasLayer"]
-offset_left = 12.0
-offset_top = 17.0
-offset_right = 171.0
-offset_bottom = 48.0
-value = 50.0
-nine_patch_stretch = true
-texture_under = ExtResource("8_pw777")
-texture_over = ExtResource("9_ueysx")
-texture_progress = ExtResource("10_8yemy")
-tint_progress = Color(0.718593, 0.0522472, 9.62615e-08, 1)
-
 [node name="Collectibles" type="Node2D" parent="."]
 script = SubResource("GDScript_t0s8u")
 
@@ -1479,4 +1464,3 @@ position = Vector2(259, 467)
 
 [connection signal="timeout" from="Light/DayNight" to="." method="_on_day_night_timeout"]
 [connection signal="timeout" from="Collectibles/Timer" to="Collectibles" method="_on_timer_timeout"]
-[connection signal="health_changed" from="Player/Player" to="." method="_on_player_health_changed"]
