@@ -1070,6 +1070,18 @@ tracks/1/keys = {
 "update": 1,
 "values": ["TakeHit"]
 }
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("AttackDirection/DamageBox/HitBox/CollisionShape2D:disabled")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
 
 [sub_resource type="Animation" id="Animation_k7ofp"]
 loop_mode = 1
@@ -1224,7 +1236,7 @@ shape = SubResource("CapsuleShape2D_gh7xj")
 position = Vector2(1, -22.5)
 scale = Vector2(2.35714, 2.01786)
 sprite_frames = SubResource("SpriteFrames_hasym")
-animation = &"Attack3"
+animation = &"TakeHit"
 autoplay = "Idle"
 
 [node name="Camera2D" type="Camera2D" parent="."]

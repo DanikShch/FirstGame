@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://cqmixo3iv8b0n"]
+[gd_scene load_steps=22 format=3 uid="uid://cqmixo3iv8b0n"]
 
 [ext_resource type="Script" path="res://level.gd" id="1_eo7cy"]
 [ext_resource type="PackedScene" uid="uid://cb1ucs77j4jdc" path="res://Player/player.tscn" id="1_vpjtd"]
@@ -11,6 +11,7 @@
 [ext_resource type="Texture2D" uid="uid://tqeujo8ra0lv" path="res://oak_woods_v1.0/decorations/circle.png" id="8_wmdh2"]
 [ext_resource type="PackedScene" uid="uid://dmub7321o5is5" path="res://Mobs/mushroom.tscn" id="9_rm0e2"]
 [ext_resource type="PackedScene" uid="uid://bkw1fpnhovraq" path="res://scn/UI/pause_menu.tscn" id="9_xgnfs"]
+[ext_resource type="PackedScene" uid="uid://bhk87oxtfjjw2" path="res://scn/Collectibles/coin.tscn" id="10_2rq1e"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_722i0"]
 texture = ExtResource("5_jky3v")
@@ -1336,13 +1337,19 @@ _data = {
 [sub_resource type="GDScript" id="GDScript_t0s8u"]
 script/source = "extends Node2D
 
-var gold = preload(\"res://Collectibles/gold.tscn\")
+var coin_preload = preload(\"res://scn/Collectibles/coin.tscn\")
 
-#gold spawn
-#func _on_timer_timeout():
-	#var goldTemp = gold.instantiate()
-	#goldTemp.global_position = Vector2(randi_range(50, 500), 525)
-	#add_child(goldTemp)
+func _ready():
+	Signals.connect(\"enemy_died\", Callable(self, \"_on_enemy_died\"))
+	
+func _on_enemy_died(enemy_position):
+	for i in randi_range(1, 5):
+		coin_spawn(enemy_position)
+	
+func coin_spawn(pos):
+	var coin = coin_preload.instantiate()
+	coin.position = pos
+	call_deferred(\"add_child\", coin)
 "
 
 [node name="Level" type="Node2D"]
@@ -1473,6 +1480,9 @@ script = SubResource("GDScript_t0s8u")
 [node name="Timer" type="Timer" parent="Collectibles"]
 wait_time = 3.0
 autostart = true
+
+[node name="Coin" parent="Collectibles" instance=ExtResource("10_2rq1e")]
+position = Vector2(147, 550)
 
 [node name="Mobs" type="Node2D" parent="."]
 

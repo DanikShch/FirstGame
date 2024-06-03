@@ -19,6 +19,7 @@ config/icon="res://icon.svg"
 
 Signals="*res://scn/signals.gd"
 Global="*res://scn/global.gd"
+Inventory="*res://scn/Inventory/inventory.gd"
 
 [display]
 

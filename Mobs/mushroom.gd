@@ -32,6 +32,7 @@ var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 var player
 var direction
 var damage = 20
+var alive = true
 
 
 func _physics_process(delta):
@@ -71,6 +72,9 @@ func damage_state():
 	state = IDLE
 
 func death_state():
+	if alive:
+		alive = false
+		Signals.emit_signal("enemy_died", position)
 	animPlayer.play("Death")
 	await animPlayer.animation_finished
 	queue_free()
