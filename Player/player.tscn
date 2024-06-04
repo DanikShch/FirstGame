@@ -1,4 +1,4 @@
-[gd_scene load_steps=118 format=3 uid="uid://cb1ucs77j4jdc"]
+[gd_scene load_steps=126 format=3 uid="uid://cb1ucs77j4jdc"]
 
 [ext_resource type="Texture2D" uid="uid://cmftf20sm7nlv" path="res://oak_woods_v1.0/character/char_blue.png" id="1_6ne6j"]
 [ext_resource type="Script" path="res://Player/player.gd" id="1_burtu"]
@@ -10,6 +10,14 @@
 [ext_resource type="PackedScene" uid="uid://cf5hagcfkbflr" path="res://scn/UI/resources.tscn" id="8_kyla8"]
 [ext_resource type="PackedScene" uid="uid://d1smxk22hkwej" path="res://scn/Player/leafs.tscn" id="9_s5mdo"]
 [ext_resource type="Texture2D" uid="uid://bia1irabqvdad" path="res://Assets/sprites/spotlight_6.png" id="10_xwsk0"]
+[ext_resource type="Texture2D" uid="uid://ps4pit1qslon" path="res://Assets/UI/arrow_button.png" id="11_rrg8b"]
+[ext_resource type="Texture2D" uid="uid://j7qrr1m5c8ri" path="res://Assets/UI/speed_button.png" id="12_ox0bb"]
+[ext_resource type="Texture2D" uid="uid://d4hp71qy28i6y" path="res://Assets/UI/arrow_button_pressed.png" id="12_x2c4p"]
+[ext_resource type="Texture2D" uid="uid://dknfagb4mklhh" path="res://Assets/UI/attack_button.png" id="13_go1ex"]
+[ext_resource type="Texture2D" uid="uid://bnbla1st4o1p" path="res://Assets/UI/block_button.png" id="14_2o5h0"]
+[ext_resource type="Texture2D" uid="uid://qfs6kr632jjk" path="res://Assets/UI/speed_button_pressed.png" id="14_lfuhh"]
+[ext_resource type="Texture2D" uid="uid://ciuu18ckaehwc" path="res://Assets/UI/attack_button_pressed.png" id="16_ckve5"]
+[ext_resource type="Texture2D" uid="uid://ce4xwflt2fudr" path="res://Assets/UI/block_button_pressed.png" id="18_p30np"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_gh7xj"]
 radius = 24.0
@@ -1356,6 +1364,51 @@ amount = 15
 process_material = SubResource("ParticleProcessMaterial_4puwb")
 texture = ExtResource("10_xwsk0")
 lifetime = 5.0
+
+[node name="MobileControl" type="CanvasLayer" parent="."]
+
+[node name="MoveLeft" type="TouchScreenButton" parent="MobileControl"]
+modulate = Color(1, 1, 1, 0.392157)
+position = Vector2(12, 528)
+scale = Vector2(2.5, 2.5)
+texture_normal = ExtResource("11_rrg8b")
+texture_pressed = ExtResource("12_x2c4p")
+passby_press = true
+action = "left"
+
+[node name="MoveRight" type="TouchScreenButton" parent="MobileControl"]
+modulate = Color(1, 1, 1, 0.392157)
+position = Vector2(248, 628)
+rotation = 3.14159
+scale = Vector2(2.5, 2.5)
+texture_normal = ExtResource("11_rrg8b")
+texture_pressed = ExtResource("12_x2c4p")
+passby_press = true
+action = "right"
+
+[node name="RunButton" type="TouchScreenButton" parent="MobileControl"]
+modulate = Color(1, 1, 1, 0.392157)
+position = Vector2(912, 528)
+scale = Vector2(2.5, 2.5)
+texture_normal = ExtResource("12_ox0bb")
+texture_pressed = ExtResource("14_lfuhh")
+action = "run"
+
+[node name="AttackButton" type="TouchScreenButton" parent="MobileControl"]
+modulate = Color(1, 1, 1, 0.392157)
+position = Vector2(1032, 528)
+scale = Vector2(2.5, 2.5)
+texture_normal = ExtResource("13_go1ex")
+texture_pressed = ExtResource("16_ckve5")
+action = "attack"
+
+[node name="BlockButton" type="TouchScreenButton" parent="MobileControl"]
+modulate = Color(1, 1, 1, 0.392157)
+position = Vector2(1032, 408)
+scale = Vector2(2.5, 2.5)
+texture_normal = ExtResource("14_2o5h0")
+texture_pressed = ExtResource("18_p30np")
+action = "block"
 
 [connection signal="no_stamina" from="Stats" to="." method="_on_stats_no_stamina"]
 
