@@ -23,6 +23,8 @@ Inventory="*res://scn/Inventory/inventory.gd"
 
 [display]
 
+window/size/viewport_width=960
+window/size/viewport_height=540
 window/stretch/mode="canvas_items"
 
 [editor]
@@ -89,3 +91,4 @@ run={
 
 textures/canvas_textures/default_texture_filter=0
 renderer/rendering_method="mobile"
+textures/vram_compression/import_etc2_astc=true

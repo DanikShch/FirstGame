@@ -1458,6 +1458,7 @@ grow_horizontal = 0
 text = "MENU"
 
 [node name="Light" type="Node2D" parent="."]
+visible = false
 
 [node name="DirectionalLight2D" type="DirectionalLight2D" parent="Light"]
 energy = 0.9
