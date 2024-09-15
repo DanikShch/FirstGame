@@ -66,3 +66,6 @@ func mushroom_spawn():
 		var mushroom = mushroom_preload.instantiate()
 		mushroom.position = Vector2(randi_range(-500, 0), 520)
 		$Mobs.add_child(mushroom)
+
+#qweqwe
+#qweqwe
